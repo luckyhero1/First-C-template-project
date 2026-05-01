@@ -1,5 +1,6 @@
 #include "DoublyLinkedList.h"
 
+// Push- and pull-functions
 template<typename T>
 void DL_List<T>::push_front(T const& val)
 {
@@ -17,40 +18,21 @@ void DL_List<T>::pop_front()
     head->before = nullptr;
 }
 
-/**
- * Idea for push_- and pop_back:
- * 
- * Begin with head and compare it's successor with the nullptr.
- * If it's not the nullptr, iterate until you finde the node with nullptr as successor.
- * Then you can operate push or pop.
- */
 template<typename T>
 void DL_List<T>::push_back(T const& val)
 {
-    Node* node = head;
-    
-    while(node->next != nullptr)
-    {
-        node = head->next;
-    }
-
-    Node* predecessor = node;
-    node = new Node{val, nullptr, predecessor};
+    Node* tmp = tail;
+    tail = new Node{val, nullptr, tmp};
+    tmp->next = &tail;
 }
 
 template<typename T>
 void DL_List<T>::pop_back()
 {
-    Node* node = head;
-    
-    while(node->next != nullptr)
-    {
-        node = head->next;
-    }
-
-    Node* predecessor = node->before;
-    delete node;
-    predecessor->next = nullptr;
+    Node* temp = tail->before;
+    delete tail;
+    tail = temp;
+    tail->next = nullptr;
 }
 
 template<typename T>
@@ -84,7 +66,8 @@ void DL_List<T>::pop_at_position(unsigned int position)
     predecessor->next = successor;
     successor->before = predecessor;
 }
-
+//-----------------------------------------------------------------
+// Usefull functions
 template<typename T>
 int DL_List<T>::size()
 {
@@ -115,3 +98,60 @@ bool DL_List<T>::empty()
     return false;
 }
 
+template<typename T>
+void DL_List<T>::swap(DL_List& l)
+{
+    Node* tmp_head = head;
+    Node* tmp_tail = tail;
+
+    head = l.head;
+    tail = l.tail;
+
+    l.head = tmp_head;
+    l.tail = tmp_tail;
+}
+//-----------------------------------------------------------------
+// Constructors
+template<typename T>
+DL_List<T>::~DL_List()  // destructor
+{
+    while(!empty())
+    {
+        pop_front();
+    }
+}
+
+template<typename T>
+DL_List<T>::DL_List(DL_List const& l)   // copy constructor
+{
+    DL_List tmp;
+    for(T const& x : l)
+    {
+        tmp.push_front(x);
+    }
+    for(T const& x : tmp)
+    {
+        push_front(x);
+    }
+}
+
+template<typename T>
+DL_List<T>::DL_List(DL_List&& l)    // move constructor
+{
+    swap(l);
+}
+
+template<typename T>
+DL_List<T>& DL_List<T>::operator=(DL_List l)    // copy assignment
+{
+    swap(l);
+    return *this;
+}
+
+template<typename T>
+DL_List<T>& DL_List<T>::operator=(DL_List&& l) // move assignment
+{
+    swap(l);
+    return *this;
+}
+//-----------------------------------------------------------------

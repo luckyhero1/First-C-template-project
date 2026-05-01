@@ -1,0 +1,9 @@
+add_library(PO_DataStructs
+    DoublyLinkedList.cpp
+)
+
+target_include_directories(
+    PO_DataStructs
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
