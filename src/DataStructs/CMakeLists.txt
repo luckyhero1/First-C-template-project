@@ -1,5 +1,5 @@
 add_library(PO_DataStructs
-    DoublyLinkedList.cpp
+    dummy.cpp
 )
 
 target_include_directories(
