@@ -12,7 +12,7 @@ public:
     {
         T value;
         Node* next;
-        Node* before;
+        Node* before;       
     };
     //-----------------------------------------------------------------
     // Iterator
@@ -210,7 +210,7 @@ public:
     // Usefull functions
     int size()
     {
-        if (head == nullptr)
+        if (empty())
         {
             return 0;
         }
@@ -246,6 +246,55 @@ public:
 
         l.head = tmp_head;
         l.tail = tmp_tail;
+    }
+    //-----------------------------------------------------------------
+    // Operator overloading
+    Node* operator[](int n)
+    {
+        if((n < 0) || (n > size() - 1))
+        {
+            std::cout << "Argument position is not in defined scope.\n.";
+            exit(-2);
+        }
+
+        if(empty())
+        {
+            std::cout << "You can't access a list, that is empty.\n";
+            exit(-3);
+        }
+
+        Node *node = head;
+
+        for (int i = 0; i < n; i += 1)
+        {
+            node = node->next;
+        }
+
+        return node;
+    }
+
+    Node const* operator[](int n) const
+    {
+        if((n < 0) || (n > size() - 1))
+        {
+            std::cout << "Argument position is not in defined scope.\n.";
+            exit(-2);
+        }
+
+        if(empty())
+        {
+            std::cout << "You can't access a list, that is empty.\n";
+            exit(-3);
+        }
+
+        Node *node = head;
+
+        for (int i = 0; i < n; i += 1)
+        {
+            node = node->next;
+        }
+
+        return node;
     }
     //-----------------------------------------------------------------
     // Value queries
@@ -289,13 +338,13 @@ public:
         swap(l);
     }
 
-    DL_List &operator=(DL_List l) // copy assignment
+    DL_List& operator=(DL_List l) // copy assignment
     {
         swap(l);
         return *this;
     }
 
-    DL_List &operator=(DL_List &&l) // move assignment
+    DL_List& operator=(DL_List &&l) // move assignment
     {
         swap(l);
         return *this;
