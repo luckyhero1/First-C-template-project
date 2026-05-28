@@ -8,3 +8,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 # Subdirectory einbinden
 add_subdirectory(src)
+add_subdirectory(docs)
