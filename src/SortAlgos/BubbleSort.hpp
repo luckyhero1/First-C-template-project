@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <string>
 
 int give_rgb(int value, int c0, int c1)
 {
@@ -15,15 +16,14 @@ int give_rgb(int value, int c0, int c1)
 
 template<typename T>
 void show_obj(T& obj, std::ostream& out, int pivot_element = 0, int value = 0, int was_sorted_flag = 0) {
-    out << "\\begin{tikzpicture}\n"
-            "\\node[anchor = west] at (0, 0.5) {Schritt: " << value + 1 << "};\n"
-            "\\draw[step = 1, gray!10](0, -1) grid(" << obj.size() - 0.5 << ", 1);\n";
+    out << "\\begin{tikzpicture}[x=1cm, y=1cm]\n"
+           "\\node[anchor = west] at (0, 1.2) {Schritt: " << value + 1 << "};\n"
+           "\n";
 
-    // int color = ((sin(0.25 * value - 1.5) + 1) / 2.0) * 50.0;
     int rgb_red = give_rgb(value, 240, 100);
     int rgb_green = give_rgb(value, 245, 141);
 
-    for (int i = 0; i < obj.size(); i++)
+    /*for (int i = 0; i < obj.size(); i++)
     {
         int column = i; // sollte +2 sein
         if(i == pivot_element)
@@ -47,7 +47,36 @@ void show_obj(T& obj, std::ostream& out, int pivot_element = 0, int value = 0, i
     out << "\n"
            "\\draw[gray!30] (1.5,-0.5) rectangle (" << 1.5 + obj.size() << ",0.5);\n"
            "\\end{tikzpicture}\n"
-           "\n";
+           "\n";*/
+
+    for (int i = 0; i < obj.size(); i++)
+    {
+        std::string color;
+
+        if (i == pivot_element)
+        {
+            color = "red!60";
+        }
+        else if (i - 1 == pivot_element && value != 0)
+        {
+            color = "orange!60";
+        }
+        else if (i + 1 == pivot_element && was_sorted_flag == 1 && value != 0)
+        {
+            color = "green!60";
+        }
+        else
+        {
+            color = "{rgb,255:red," + std::to_string(rgb_red) +
+                    "; green," + std::to_string(rgb_green) +
+                    "; blue,255}";
+        }
+
+        out << "\\node[draw, minimum width=0.8cm, minimum height=0.8cm, fill=" << color
+            << "] at (" << i << ",0) {" << obj[i]->value << "};\n";
+    }
+
+    out << "\\end{tikzpicture}\n\n";
 }
 
 template<typename T>

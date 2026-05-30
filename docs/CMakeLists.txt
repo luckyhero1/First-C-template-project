@@ -1,7 +1,7 @@
 find_program(LATEXMK latexmk)
 
 if(NOT LATEXMK)
-    message(FATAL_ERROR "latexmk not found. Install MiKTeX.")
+    message(FATAL_ERROR "latexmk not found. Install latexmk (z.B. texlive oder MiKTeX).")
 endif()
 
 # ------------------------------------------------------------
@@ -20,12 +20,14 @@ set(OUT_PDF
     ${CMAKE_SOURCE_DIR}/bin/pdf/output_jamie.pdf
 )
 
+file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/tex ${CMAKE_SOURCE_DIR}/bin/pdf)
+
 # ------------------------------------------------------------
 # Schritt 1: C++ erzeugt *.tex
 add_custom_command(
     OUTPUT ${GENERATED_TEX} # Zieldatei
-    COMMAND $<TARGET_FILE:CppTemplate_Sort_and_Struct_Visualisation>    # Generator expression: nimm den Pfad zur ausführbaren Datei, brauch ich weil kein Hardcode
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/tex
+    # Starte CMake als Hilfsprogramm (scheinbar sicherer für die Arbeit auf den Verzeichnissen, gerad bei Leerzeichen/Sonderzeichen)
+    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_SOURCE_DIR}/bin/tex $<TARGET_FILE:CppTemplate_Sort_and_Struct_Visualisation>
     DEPENDS CppTemplate_Sort_and_Struct_Visualisation
     COMMENT "Generating output.tex"
 )

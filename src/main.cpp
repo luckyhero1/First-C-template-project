@@ -88,7 +88,7 @@ int main() {
     LatexDocument doc2(file2);
 
     DL_List<int> l5;
-    for (int i = 0; i < 15; i += 1)
+    for (int i = 0; i < 17; i += 1)
     {
         l5.push_at_position(i, rand() % 10);
     }
