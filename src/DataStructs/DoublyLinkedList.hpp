@@ -27,6 +27,15 @@ public:
             return *this;
         }
 
+        Iterator operator++(int)    // postfix
+        {
+            Iterator result{*this};
+            node = node->next;
+            return result;
+        }
+
+        // TODO: --a a-- für before
+
         friend
         bool operator==(Iterator a, Iterator b)
         {
@@ -308,6 +317,7 @@ public:
     iterator end(){return iterator{nullptr};}
     const_iterator begin() const{return const_iterator{head};}
     const_iterator end() const{return const_iterator{nullptr};}
+    // TODO: rbegin, rend, cbegin, cend, ???crbegin, crend???
     //-----------------------------------------------------------------
     // Constructors
     DL_List() = default;

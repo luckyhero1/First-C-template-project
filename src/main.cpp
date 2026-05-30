@@ -2,8 +2,8 @@
 #include <fstream>
 #include <cstdlib>
 
-#include "DoublyLinkedList.h"
-#include "BubbleSort.cpp"
+#include "DoublyLinkedList.hpp"
+#include "BubbleSort.hpp"
 #include "LatexDocument.hpp"
 
 /*

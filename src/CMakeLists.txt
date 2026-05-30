@@ -3,6 +3,7 @@ add_subdirectory(SortAlgos)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
+# Dadurch funktionieren meine includes (für den Compiler)
 target_include_directories(
     ${PROJECT_NAME}
     PRIVATE
@@ -10,6 +11,7 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/SortAlgos
 )
 
+# Dadurch wird der Code gefunden (für den Linker)
 target_link_libraries(
     ${PROJECT_NAME}
     PO_DataStructs
