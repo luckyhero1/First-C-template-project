@@ -67,7 +67,6 @@ void bubble_sort(T& obj, std::ofstream& out)
     int pivot_element = 0;
     int count = 0;
 
-    // 
     for(int i = 1; i < length + 1; i += 1)
     {
         for(int j = 0; j < length - 1; j += 1)
