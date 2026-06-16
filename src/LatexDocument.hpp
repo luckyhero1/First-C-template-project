@@ -11,7 +11,7 @@ struct LatexDocument {
         out << "\\documentclass{article}\n"
                "\\usepackage{tikz}\n"
                "\\usepackage{xcolor}"
-               "\\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}\n"
+               "\\usepackage[left=1.5cm, right=1.5cm, top=2.5cm, bottom=2.5cm]{geometry}\n"
                "\\begin{document}\n"
                "\n"
                "\\title{Visualisierung des BubbleSort-Algos}\n"

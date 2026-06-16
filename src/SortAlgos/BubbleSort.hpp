@@ -17,11 +17,8 @@ int give_rgb(int value, int c0, int c1)
 template<typename T>
 void show_obj(T& obj, std::ostream& out, int pivot_element = 0, int value = 0, int was_sorted_flag = 0) {
     out << "\\begin{tikzpicture}[x=1cm, y=1cm]\n"
-           "\\node[anchor = west] at (0, 1.2) {Schritt: " << value + 1 << "};\n"
+           "\\node[anchor = west] at (-0.6, 0.8) {Schritt: " << value + 1 << "};\n"
            "\n";
-
-    int rgb_red = give_rgb(value, 240, 100);
-    int rgb_green = give_rgb(value, 245, 141);
 
     /*for (int i = 0; i < obj.size(); i++)
     {
@@ -49,15 +46,20 @@ void show_obj(T& obj, std::ostream& out, int pivot_element = 0, int value = 0, i
            "\\end{tikzpicture}\n"
            "\n";*/
 
+    int row = 0;
     for (int i = 0; i < obj.size(); i++)
     {
         std::string color;
+        if((i != 0) && (i % 17 == 0))
+        {
+            row -= 1;
+        }
 
-        if (i == pivot_element)
+        if (i == pivot_element) // Draws the current "bubble-element"/iterator
         {
             color = "red!60";
         }
-        else if (i - 1 == pivot_element && value != 0)
+        else if (i - 1 == pivot_element && was_sorted_flag == 0 && value != 0) // next element, that will be compared to current
         {
             color = "orange!60";
         }
@@ -67,16 +69,16 @@ void show_obj(T& obj, std::ostream& out, int pivot_element = 0, int value = 0, i
         }
         else
         {
-            color = "{rgb,255:red," + std::to_string(rgb_red) +
-                    "; green," + std::to_string(rgb_green) +
-                    "; blue,255}";
+            color = "{rgb,255:red,191; green,209; blue,255}";
         }
 
         out << "\\node[draw, minimum width=0.8cm, minimum height=0.8cm, fill=" << color
-            << "] at (" << i << ",0) {" << obj[i]->value << "};\n";
+            << "] at (" << i % 17 << "," << row << ") {" << obj[i]->value << "};\n"
+            "\n";
     }
 
-    out << "\\end{tikzpicture}\n\n";
+    out << "\\end{tikzpicture}\n"
+            "\n";
 }
 
 template<typename T>
