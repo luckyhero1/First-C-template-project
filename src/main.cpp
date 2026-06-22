@@ -35,4 +35,14 @@ int main() {
     }
 
     bubble_sort(l5, file2);
+
+    l4 = l5;
+    l4.push_back(7);
+    std::cout << l4.size() << " " << l5.size();
+
+    l4 = std::move(l5);
+    l4.push_back(7);
+    std::cout << l4.size() << " " << l5.size(); // l5 wird nicht automatisch durch move gelöscht (das müsste man selbst machen). Die Ausgabe hier ist nicht
+
+    std::cout << "Hallo";
 }

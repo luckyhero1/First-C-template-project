@@ -334,7 +334,7 @@ public:
         return it.node;
     }
 
-    void operator<<(std::ostream out)
+    void operator<<(std::ostream& out)
     {
         out << "[";
 
@@ -382,9 +382,10 @@ public:
         swap(l);
     }
 
-    DL_List& operator=(DL_List l) // copy assignment
+    DL_List& operator=(DL_List const& l) // copy assignment
     {
-        swap(l);
+        DL_List tmp{l};
+        swap(tmp);
         return *this;
     }
 
@@ -393,24 +394,4 @@ public:
         swap(l);
         return *this;
     }
-    //-----------------------------------------------------------------
-    // Output
-    /*void print()
-    {
-        std::cout << "[";
-        
-        for(T const& elements : *this)
-        {
-            if(elements == back())
-            {
-                std::cout << elements;
-            }
-            else
-            {
-                std::cout << elements << ", ";
-            }
-        }
-
-        std::cout << "]\n";
-    }*/
 };
